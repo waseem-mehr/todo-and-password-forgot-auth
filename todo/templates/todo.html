@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="{% static "css/style.css" %}" type="text/css" rel="stylesheet" />
+  <title>Todo</title>
+</head>
+
+<body>
+  <div class="main-container">
+    <h1> Todo Application </h1>
+    <form method="POST" action="/add/">
+      {% csrf_token %}
+      <input type="text" name="todo_text" placeholder="Enter Your Task Here..." />
+      <button type="submit">Add</button>
+    </form>
+    <ul>
+      {% for todo in todos %}
+      <li>
+        <span>{{todo.todo_text}}</span>
+        <a href="update/{{todo.todo_id}}/"><button>Update</button></a>
+        <a href="delete/{{todo.todo_id}}/"><button>Delete</button></a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <a href="{% url "password_reset" %}">Are you forgot your password?</a>
+</body>
+
+</html>
